@@ -9,9 +9,7 @@
       "altText": "Red apple",
       "relatedWords": [
         "Avocado",
-        "Ace",
-        "Ash",
-        "ARt"
+        "Ace"
       ]
     },
     {
@@ -24,7 +22,7 @@
       "relatedWords": [
         "Banana",
         "Book",
-        "Boat"
+        "Brown"
       ]
     },
     {
@@ -84,8 +82,7 @@
       "altText": "Brown guitar",
       "relatedWords": [
         "Giraffe",
-        "Green",
-        "Grass"
+        "Green"
       ]
     },
     {
@@ -97,8 +94,7 @@
       "altText": "Black top hat",
       "relatedWords": [
         "Helicopter",
-        "Heart",
-        "Hatch"
+        "Heart"
       ]
     },
     {
@@ -218,8 +214,7 @@
       "altText": "Gray rat with pink tail",
       "relatedWords": [
         "Rain",
-        "Rocket",
-        "Rake"
+        "Rocket"
       ]
     },
     {
@@ -231,7 +226,9 @@
       "altText": "Green snake with red tongue",
       "relatedWords": [
         "Sun",
-        "Stir"
+        "Stir",
+        "Shake",
+        "Shake"
       ]
     },
     {
@@ -243,8 +240,7 @@
       "altText": "Gold tiger face with black stripes",
       "relatedWords": [
         "Tree",
-        "Train",
-        "Treat"
+        "Train"
       ]
     },
     {
@@ -268,8 +264,7 @@
       "altText": "Orange and yellow vest",
       "relatedWords": [
         "Volcano",
-        "Valley",
-        "Vase"
+        "Valley"
       ]
     },
     {

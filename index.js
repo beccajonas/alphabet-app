@@ -5,13 +5,13 @@ let imageButton = document.querySelector('.button-on-image');
 imageButton.style.display = 'none';
 let form = document.querySelector('#form')
 let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-
-
+let pageKeypress;
 
 fetch("http://localhost:3000/alphabet")
     .then((res) => res.json())
     .then((data) => {
         formHandle(data)
+        
         data.forEach(letter => {
             renderDisplay(letter);
             renderLetters(letter);
@@ -27,14 +27,34 @@ function renderLetters(letters) {
     letterList.append(letter);
     }
 
+// let prompt = document.querySelector(".input")
+// prompt.addEventListener('keypress', e => {
+//     console.log('prompt keycode ' + e.key);
+//     let promptKeypress = e.key;
+// })
+
+// document.addEventListener('keypress', e => {
+//     if (e.target.tagName.toLowerCase() !== 'input') {
+//         console.log('document keycode ' + e.key)
+//     let pageKeypress = e.key;
+//     }
+// });
+
+// console.log(promptKeypress, pageKeypress);
+
 function formHandle(letters) {
     form.addEventListener('submit', e => {
         e.preventDefault();
         let wordSubmission = e.target[0].value
         let wordSubmissionFirstLetter = wordSubmission[0].toLowerCase()
         let wordSubmissionIndex = alphabet.indexOf(wordSubmissionFirstLetter).toString();
-        console.log(wordSubmissionIndex);
         let letterObj = letters[wordSubmissionIndex]
+
+        if (!letterObj) {
+            alert(`Oops! No letter found for '${wordSubmissionFirstLetter}'. Try again!`);
+            return;
+        }
+
         let letterId = letterObj.id
         let letterWordArray = letterObj.relatedWords
 
@@ -46,19 +66,21 @@ function formHandle(letters) {
         body: JSON.stringify ({ relatedWords : [...letterWordArray, wordSubmission] })
     })
     .then(response => response.json())
-    .then(data => {console.log(data)
-        let newWordLi = document.createElement('li');
-        newWordLi.innerText = wordSubmission;
-        newWordLi.className = 'related-words';
-        ul.append(newWordLi);
+    .then(data => {   
+        if (wordSubmissionFirstLetter.toLowerCase() === letterObj.letter.toLowerCase()) {
+            let newWordLi = document.createElement('li');
+            newWordLi.innerText = wordSubmission;
+            newWordLi.className = 'related-words';
+            ul.append(newWordLi);
+            form.reset();
+        }
+        else {alert(`Oops! That doesn't start with '${data.letter.toLowerCase()}.' Try again!`)}
         })
-    
-    form.reset();
     })
 }
 
 function renderDisplay(letter) {
-    document.addEventListener('keypress', e => {     
+    document.addEventListener('keypress', e => {    
         
         if (e.target.tagName.toLowerCase() !== 'input') {
 
