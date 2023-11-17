@@ -1,3 +1,8 @@
+// * To do: 
+// * 1. Persist patch without refresh
+// * 2. Remove selected element from relatedWords array on delete button click
+// * 3. Prevent entire letter object being deleted if all relatedWords are array (see parent element?)
+
 let formRendered = false;
 let ul = document.querySelector('#related-word-list')
 let footerPhoto = document.querySelector('.footer-image');
@@ -26,21 +31,6 @@ function renderLetters(letters) {
     letter.addEventListener('click', () => letter.style.textDecoration = "line-through");
     letterList.append(letter);
     }
-
-// let prompt = document.querySelector(".input")
-// prompt.addEventListener('keypress', e => {
-//     console.log('prompt keycode ' + e.key);
-//     let promptKeypress = e.key;
-// })
-
-// document.addEventListener('keypress', e => {
-//     if (e.target.tagName.toLowerCase() !== 'input') {
-//         console.log('document keycode ' + e.key)
-//     let pageKeypress = e.key;
-//     }
-// });
-
-// console.log(promptKeypress, pageKeypress);
 
 function formHandle(letters) {
     form.addEventListener('submit', e => {
@@ -71,6 +61,12 @@ function formHandle(letters) {
             let newWordLi = document.createElement('li');
             newWordLi.innerText = wordSubmission;
             newWordLi.className = 'related-words';
+
+            let deleteIcon = document.createElement('span');
+            deleteIcon.innerHTML = '&#10006;'; 
+            deleteIcon.className = 'delete-button';
+
+            newWordLi.appendChild(deleteIcon);
             ul.append(newWordLi);
             form.reset();
         }
@@ -96,6 +92,12 @@ function renderDisplay(letter) {
                     let li = document.createElement('li');
                     li.innerText = word;
                     li.className = 'related-words';
+
+                    let deleteIcon = document.createElement('span');
+                    deleteIcon.innerHTML = '&#10006;'; 
+                    deleteIcon.className = 'delete-button';
+
+                    li.appendChild(deleteIcon);
                     ul.appendChild(li);
                 });
 
@@ -129,3 +131,28 @@ function renderDisplay(letter) {
         };
     });
 };
+
+ul.addEventListener('click', (e) => {
+    let firstLetter = e.target.parentElement.textContent[0].toLowerCase()
+    let firstLetterIndex = alphabet.indexOf(firstLetter).toString();
+        
+    if(!e.target.classList.contains('delete-icon')) {
+        let li = e.target.parentElement;
+        li.remove()
+    }
+});
+
+// let prompt = document.querySelector(".input")
+// prompt.addEventListener('keypress', e => {
+//     console.log('prompt keycode ' + e.key);
+//     let promptKeypress = e.key;
+// })
+
+// document.addEventListener('keypress', e => {
+//     if (e.target.tagName.toLowerCase() !== 'input') {
+//         console.log('document keycode ' + e.key)
+//     let pageKeypress = e.key;
+//     }
+// });
+
+// console.log(promptKeypress, pageKeypress);

@@ -122,7 +122,8 @@ body {
     margin-bottom: 10px;
     border: 7px solid #241E4E;
     border-radius: 8px;
-    color: #241E4E
+    color: #241E4E;
+    position: relative;
   }
 
   .new-related-words {
@@ -183,4 +184,13 @@ body {
   display: none;
   padding: 10px;
   min-width: 50vw;
+}
+
+.delete-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: #a3333d;
+  font-size: 15px;
+  cursor: pointer;
 }

@@ -9,7 +9,8 @@
       "altText": "Red apple",
       "relatedWords": [
         "Avocado",
-        "Ace"
+        "Ace",
+        "Ache"
       ]
     },
     {
@@ -21,8 +22,7 @@
       "altText": "Orange sailboat on water",
       "relatedWords": [
         "Banana",
-        "Book",
-        "Brown"
+        "Book"
       ]
     },
     {
@@ -58,7 +58,9 @@
       "altText": "Gray elephant",
       "relatedWords": [
         "Eagle",
-        "Ear"
+        "Ear",
+        "Each",
+        "Eerie"
       ]
     },
     {
@@ -70,7 +72,8 @@
       "altText": "Green frog",
       "relatedWords": [
         "Fight",
-        "Fresh"
+        "Fresh",
+        "Flight"
       ]
     },
     {
@@ -190,7 +193,8 @@
       "altText": "Pink pig face",
       "relatedWords": [
         "Pizza",
-        "Park"
+        "Park",
+        "Patch"
       ]
     },
     {
@@ -226,9 +230,7 @@
       "altText": "Green snake with red tongue",
       "relatedWords": [
         "Sun",
-        "Stir",
-        "Shake",
-        "Shake"
+        "Stir"
       ]
     },
     {
@@ -240,7 +242,8 @@
       "altText": "Gold tiger face with black stripes",
       "relatedWords": [
         "Tree",
-        "Train"
+        "Train",
+        "Trest"
       ]
     },
     {
