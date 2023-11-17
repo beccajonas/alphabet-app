@@ -52,6 +52,8 @@ function formHandle(letters) {
         newWordLi.className = 'related-words';
         ul.append(newWordLi);
         })
+    
+    form.reset();
     })
 }
 
@@ -66,12 +68,14 @@ function renderDisplay(letter) {
                 let relatedWords = letter.relatedWords
                 console.log(relatedWords);
 
+                ul.innerHTML = '';
+
                 relatedWords.forEach(word => {
-                    let li = document.createElement('li')
-                    li.innerText = word
-                    li.className = 'related-words'
-                    ul.appendChild(li)
-                })
+                    let li = document.createElement('li');
+                    li.innerText = word;
+                    li.className = 'related-words';
+                    ul.appendChild(li);
+                });
 
                 document.querySelector('#word-div').style.display = 'flex';
                 document.querySelector('#display-letter').style.display = 'flex';
