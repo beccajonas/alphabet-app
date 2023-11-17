@@ -1,16 +1,21 @@
 let formRendered = false;
-let submitedWord = false;
 let newWordList = document.getElementsByClassName('new-related-words');
 let footerPhoto = document.querySelector('.footer-image');
 let imageButton = document.querySelector('.button-on-image');
 imageButton.style.display = 'none';
+let form = document.querySelector('#form')
+let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+
 
 fetch("http://localhost:3000/alphabet")
     .then((res) => res.json())
     .then((data) => {
+        formHandle(data)
         data.forEach(letter => {
             renderDisplay(letter);
             renderLetters(letter);
+
         });
     });
 
@@ -20,32 +25,40 @@ function renderLetters(letters) {
     letter.textContent = letters.letter;
     letter.addEventListener('click', () => letter.style.textDecoration = "line-through");
     letterList.append(letter);
-};
+    }
 
-let form = document.querySelector('#form')
-form.addEventListener('submit', e => {
+function formHandle(letters) {
+    form.addEventListener('submit', e => {
         e.preventDefault();
-        handleFormSubmission(e.target[0].value);
-        form.reset();
-});
+        let wordSubmission = e.target[0].value
+        let wordSubmissionFirstLetter = wordSubmission[0].toLowerCase()
+        let wordSubmissionIndex = alphabet.indexOf(wordSubmissionFirstLetter).toString();
+        console.log(wordSubmissionIndex);
+        let letterObj = letters[wordSubmissionIndex]
+        let letterId = letterObj.id
+        let letterWordArray = letterObj.relatedWords
 
-function handleFormSubmission(wordSubmission) {
-    let relatedWordList = document.querySelector('#related-word-list'); 
-    let newWordLi = document.createElement('li');
-    newWordLi.innerText = wordSubmission;
-    newWordLi.className = 'new-related-words';
-    relatedWordList.append(newWordLi);
-    submitedWord = true;
-};
+    fetch(`http://localhost:3000/alphabet/${letterId}`, {
+        method: 'PATCH', 
+        headers: {
+            "content-type" : "application/JSON"
+        },
+        body: JSON.stringify ({ relatedWords : [...letterWordArray, wordSubmission] })
+    })
+    .then(response => response.json())
+    .then(data => {console.log(data)
+        let relatedWordList = document.querySelector('#related-word-list'); 
+        let newWordLi = document.createElement('li');
+        newWordLi.innerText = wordSubmission;
+        newWordLi.className = 'new-related-words';
+        relatedWordList.append(newWordLi);
+        })
+    })
+}
 
 function renderDisplay(letter) {
     document.addEventListener('keypress', e => {       
-        if (submitedWord) {
-            for (let i = 0; i<newWordList.length; i++) {
-            newWordList[i].remove();
-            };
-        };
-
+        
         if (e.target.tagName.toLowerCase() !== 'input') {
 
             if (letter.letter.toLowerCase() === e.key) {
