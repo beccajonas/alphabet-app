@@ -1,5 +1,5 @@
 let formRendered = false;
-let newWordList = document.getElementsByClassName('new-related-words');
+let ul = document.querySelector('#related-word-list')
 let footerPhoto = document.querySelector('.footer-image');
 let imageButton = document.querySelector('.button-on-image');
 imageButton.style.display = 'none';
@@ -47,23 +47,32 @@ function formHandle(letters) {
     })
     .then(response => response.json())
     .then(data => {console.log(data)
-        let relatedWordList = document.querySelector('#related-word-list'); 
         let newWordLi = document.createElement('li');
         newWordLi.innerText = wordSubmission;
-        newWordLi.className = 'new-related-words';
-        relatedWordList.append(newWordLi);
+        newWordLi.className = 'related-words';
+        ul.append(newWordLi);
         })
     })
 }
 
 function renderDisplay(letter) {
-    document.addEventListener('keypress', e => {       
+    document.addEventListener('keypress', e => {     
         
         if (e.target.tagName.toLowerCase() !== 'input') {
 
             if (letter.letter.toLowerCase() === e.key) {
+            
+                ul.style.display = 'flex';
+                let relatedWords = letter.relatedWords
+                console.log(relatedWords);
 
-                document.querySelector('#related-word-list').style.display = 'flex';
+                relatedWords.forEach(word => {
+                    let li = document.createElement('li')
+                    li.innerText = word
+                    li.className = 'related-words'
+                    ul.appendChild(li)
+                })
+
                 document.querySelector('#word-div').style.display = 'flex';
                 document.querySelector('#display-letter').style.display = 'flex';
                 document.querySelector('.button-on-image').style.display = 'flex';
@@ -73,16 +82,13 @@ function renderDisplay(letter) {
                 let photo = document.querySelector('img');
                 let word = document.querySelector('h3');
                 let displayLetter = document.querySelector('.display-letter');
-                let liOne = document.querySelector('#li-one');
-                let liTwo = document.querySelector('#li-two');
 
                 photo.src = letter.photo;
                 photo.alt = letter.photo;
                 photo.title = letter.altText;
                 word.innerText = letter.word;
                 displayLetter.innerText = letter.letter;
-                liOne.innerText = letter.relatedWords[0];
-                liTwo.innerText = letter.relatedWords[1];
+            
 
                 imageButton.addEventListener('click', () => {
                     photo.src = letter.livePhoto;
