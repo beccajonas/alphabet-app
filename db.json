@@ -8,7 +8,6 @@
       "livePhoto": "images/apple2.jpg",
       "altText": "Red apple",
       "relatedWords": [
-        "Ark",
         "Art"
       ]
     },
@@ -73,7 +72,8 @@
       "relatedWords": [
         "Fight",
         "Fresh",
-        "Flight"
+        "Flight",
+        "Front"
       ]
     },
     {

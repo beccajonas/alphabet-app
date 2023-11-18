@@ -5,34 +5,41 @@ body {
     flex-direction: column; /* Stack containers vertically */
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: 95vh;
     background-color: #EADAA2;
     font-family: 'Schoolbell';
   }
 
   #title-div {
-    font-weight: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+    margin: .5em;
     font-family: 'Schoolbell';
-    font-size: 50px;
-    letter-spacing: 4px;
+    font-size: 1rem;
     color: #241E4E;
   }
 
   h1 {
-    margin: 5px;
+    margin: 1px;
+    padding: 0px;
   }
   
   #list-of-letters {
-    display: inline-flex;
-    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
     flex-direction: row;
     font-family: 'Schoolbell';
     list-style-type: none;
     font-weight: bold;
-    font-size: 40px;
-    gap: 30px;
+    font-size: 1.5rem;
     color: #241E4E;
     cursor: pointer;
+    margin-left: .2em;
+    margin-right: .2em;
   }
 
   h2 {
@@ -41,28 +48,36 @@ body {
 
   .photo-container {
     max-width: 80%;
-    border: 8px solid #241E4E;
+    border: 4px solid #241E4E;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px; 
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 10px;
-    padding-right: 10px;
+    margin-bottom: 1px; 
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 
   #word-div {
     display: none;
+    padding: 0px;
   }
 
   #display-letter {
     display: none;
-    margin: 0px;
+    margin: .5em;
   }
 
   .display-letter {
-    font-size: 90px;
+    font-size: 2.5em;
+    border: 2px solid #241E4E;
+    border-radius: 8px;
     color: #241E4E;
+    background-color: #FFD046;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
   }
 
   .centered-text {
@@ -71,26 +86,24 @@ body {
     height: auto;
     display: block;
     margin: 0 auto;
+    padding: 0px;
   }
-  
-  .photo-container {
-    text-align: center;
-      position: relative;
-      max-width: 600px; /* Adjust as needed */
-      margin: 0 auto;
-  }
+
   
   .centered-photo {
-    max-width: 60%;
-    max-height: 50vh;
+    max-width: 100%;
+    max-height: 25vh;
+    padding: 0px;
+    margin: 0px;
   }
   
   .text-container {
     text-align: center;
+
   }
   
   .centered-text {
-    font-size: 50px; /* Adjust the font size as needed */
+    font-size: 2em; /* Adjust the font size as needed */
     margin: 10px 0; /* Adjust the margin as needed */
     color: #241E4E
   }
@@ -102,6 +115,8 @@ body {
   }
 
   .related-word-list {
+    flex-wrap: wrap;
+    justify-content: center;
     list-style-type: none;
     padding: 0px;
     display: none;
@@ -113,35 +128,29 @@ body {
   
 .related-words {
     text-align: center;
-    font-size: 25px;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    padding-left: 20px;
+    font-size: 1em;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
     padding-right: 20px;
-    margin: 8px;
     margin-bottom: 10px;
-    border: 7px solid #241E4E;
+    margin-left: .1em;
+    margin-right: .1em;
+    border: 2px solid #241E4E;
     border-radius: 8px;
     color: #241E4E;
     position: relative;
+    background-color: #FFD046;
   }
 
-  .new-related-words {
-    text-align: center;
-    font-size: 25px;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin: 8px;
-    margin-bottom: 10px;
-    border: 7px solid #241E4E;
-    border-radius: 8px;
-    color: #241E4E
+  #form {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .input {
-    font-size: 20px;
+    font-size: 1em;
     border: 3px solid #241E4E;
     border-radius: 4px;
     margin-bottom: 10px;
@@ -151,46 +160,61 @@ body {
   }
 
   .submit-button {
-    font-size: 20px;
+    font-size: 1em;
     font-family: 'Schoolbell';
-    border: 2px solid #241E4E;
     border-radius: 4px;
-    margin: 2px;
+    margin-left: 4px;
     background-color:#241E4E;
     color: white;
+    margin-bottom: 10px;
     }
 
+    .submit-button:hover {
+      background-color: #6FD08C; /* Change this color to the desired hover color */
+      color: #241E4E; /* Change this color to the desired text color on hover */
+  }
+
   .button-on-image {
-    padding: 7px;
-    color: #241E4E;
-    border: none;
-    cursor: pointer;
-    font-family: 'Schoolbell';
-    font-size: 18px;
-    border: 2px solid #241E4E;
-    border-radius: 6px;
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-}
+      width: 30em; /* Adjust this value as needed */
+      padding: 0.4375em;
+      color: #241e4e;
+      border: none;
+      cursor: pointer;
+      font-family: 'Schoolbell';
+      font-size: 0.3em;
+      border: 1px solid #241e4e;
+      border-radius: 3px;
+      position: absolute;
+      bottom: 36%; /* Adjust this value as needed */
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+    }
 
-#form {
-  padding-top: 20px;
-  display: none;
-}
-
-.footer-image {
-  display: none;
-  padding: 10px;
-  min-width: 50vw;
-}
+    @media only screen and (min-width: 320px) and (max-width: 480px) {
+      .button-on-image {
+        width: 20vw; /* Adjust this value for screens between 320px and 480px */
+        font-size: 0.3em; /* Adjust font size for screens between 320px and 480px */
+        bottom: 30%; /* Adjust bottom margin for screens between 320px and 480px */
+      }
+    }
 
 .delete-button {
   position: absolute;
   top: 5px;
   right: 5px;
   color: #a3333d;
-  font-size: 15px;
+  font-size: .5em;
   cursor: pointer;
+}
+
+#instruction-div {
+  padding: 0px;
+  font-size: .75em;
+}
+
+.letter-list {
+  font: 1em;
+  padding: 0px;
+  margin: 0px;
 }
