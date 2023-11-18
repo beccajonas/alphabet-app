@@ -74,8 +74,8 @@ body {
     border-radius: 8px;
     color: #241E4E;
     background-color: #FFD046;
-    padding-top: 5px;
-    padding-bottom: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     padding-left: 15px;
     padding-right: 15px;
   }
@@ -199,6 +199,14 @@ body {
       }
     }
 
+    @media only screen and (max-width: 320px) {
+      .button-on-image {
+        width: 26vw; /* Adjust this value for screens between 320px and 480px */
+        font-size: 0.1em; /* Adjust font size for screens between 320px and 480px */
+        bottom: 25%; /* Adjust bottom margin for screens between 320px and 480px */
+      }
+    }
+
 .delete-button {
   position: absolute;
   top: 5px;
@@ -209,8 +217,20 @@ body {
 }
 
 #instruction-div {
-  padding: 0px;
+  margin-bottom: .5em;
+  margin-top: .5em;
   font-size: .75em;
+  border: .2em solid #241e4e;
+  border-radius: 4px;
+  padding-left: 1px;
+  padding-right: 1px;
+  background-color: #6FD08C;
+}
+
+.instructions {
+  padding-left: 2px;
+  padding-right: 2px;
+  margin: .5rem;
 }
 
 .letter-list {
