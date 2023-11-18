@@ -84,7 +84,6 @@ function renderDisplay(letter) {
             
                 ul.style.display = 'flex';
                 let relatedWords = letter.relatedWords
-                console.log(relatedWords);
 
                 ul.innerHTML = '';
 
@@ -126,21 +125,45 @@ function renderDisplay(letter) {
                 photo.addEventListener('mouseover', (e) => {
                     let tooltipContent = photo.title;
                     e.mouseover = tooltipContent;
-                });     
+                });    
+                
+                // ? ul.addEventListener('click', (e) => {
+                // ?    console.log(e.target.className);
+                // ?       if (e.target.className === 'delete-button') {
+                // ?        let clickedElement = Array.from(e.target.parentElement.textContent)
+                // ?        console.log(clickedElement);
+                // ?        let clickedElementMinusX = clickedElement.splice(clickedElement.length , 3)
+                // ?        console.log(clickedElementMinusX);
+                // ?        console.log(relatedWords);
+                // ?       console.log(relatedWords.indexOf(clickedElement));
+
+                    // let ulChildrenArray = Array.from(ul.children);
+                    // console.log(ulChildrenArray);
+                    // let clickedIndex = ulChildrenArray.indexOf(e.target);
+                    // console.log(clickedIndex);
+
+                   
+                        fetch(`http://localhost:3000/alphabet/${letter.id}`, {
+                            method: 'PATCH', 
+                            headers: {
+                              "content-type" : "application/json"
+                            },
+                            body: JSON.stringify ({ relatedWords : relatedWords.filter(word => word !== clickedElement) })
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                             // console.log(data.relatedWords)
+                            }) 
+                            e.target.parentElement.remove();
+                        }
+                    });
+                };
             };
-        };
-    });
+        }
+    );
 };
 
-ul.addEventListener('click', (e) => {
-    let firstLetter = e.target.parentElement.textContent[0].toLowerCase()
-    let firstLetterIndex = alphabet.indexOf(firstLetter).toString();
-        
-    if(!e.target.classList.contains('delete-icon')) {
-        let li = e.target.parentElement;
-        li.remove()
-    }
-});
+
 
 // let prompt = document.querySelector(".input")
 // prompt.addEventListener('keypress', e => {
