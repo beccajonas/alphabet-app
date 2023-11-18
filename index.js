@@ -10,7 +10,6 @@ let imageButton = document.querySelector('.button-on-image');
 imageButton.style.display = 'none';
 let form = document.querySelector('#form')
 let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-let pageKeypress;
 
 fetch("http://localhost:3000/alphabet")
     .then((res) => res.json())
@@ -127,34 +126,27 @@ function renderDisplay(letter) {
                     e.mouseover = tooltipContent;
                 });    
                 
-                // ? ul.addEventListener('click', (e) => {
-                // ?    console.log(e.target.className);
-                // ?       if (e.target.className === 'delete-button') {
-                // ?        let clickedElement = Array.from(e.target.parentElement.textContent)
-                // ?        console.log(clickedElement);
-                // ?        let clickedElementMinusX = clickedElement.splice(clickedElement.length , 3)
-                // ?        console.log(clickedElementMinusX);
-                // ?        console.log(relatedWords);
-                // ?       console.log(relatedWords.indexOf(clickedElement));
+                 ul.addEventListener('click', (e) => {
+                       if (e.target.className === 'delete-button') {
+                        let clickedElement = Array.from(e.target.parentElement.textContent)
+                        let clickedElementMinusX = clickedElement.slice(0 , clickedElement.length -1).toString()
+                        let newClickedElement = clickedElementMinusX.replace(/,/g, '')
 
-                    // let ulChildrenArray = Array.from(ul.children);
-                    // console.log(ulChildrenArray);
-                    // let clickedIndex = ulChildrenArray.indexOf(e.target);
-                    // console.log(clickedIndex);
-
-                   
+                    let filteredArray = relatedWords.filter(word => word !== newClickedElement)
+                    console.log('Before fetch:', letter.id, relatedWords, filteredArray);
+                      
                         fetch(`http://localhost:3000/alphabet/${letter.id}`, {
                             method: 'PATCH', 
                             headers: {
                               "content-type" : "application/json"
                             },
-                            body: JSON.stringify ({ relatedWords : relatedWords.filter(word => word !== clickedElement) })
+                            body: JSON.stringify ({relatedWords: filteredArray})
                             })
                             .then(response => response.json())
                             .then(data => {
-                             // console.log(data.relatedWords)
+                                console.log('After fetch success:', data);
+                                e.target.parentElement.remove();
                             }) 
-                            e.target.parentElement.remove();
                         }
                     });
                 };

@@ -8,10 +8,8 @@
       "livePhoto": "images/apple2.jpg",
       "altText": "Red apple",
       "relatedWords": [
-        "Avocado",
-        "Ace",
-        "Ache",
-        "Act"
+        "Ark",
+        "Art"
       ]
     },
     {
@@ -23,7 +21,9 @@
       "altText": "Orange sailboat on water",
       "relatedWords": [
         "Banana",
-        "Book"
+        "Book",
+        "Bloat",
+        "Bark"
       ]
     },
     {
@@ -60,8 +60,7 @@
       "relatedWords": [
         "Eagle",
         "Ear",
-        "Each",
-        "Eerie"
+        "Each"
       ]
     },
     {
@@ -208,7 +207,8 @@
       "relatedWords": [
         "Quilt",
         "Question",
-        "Quily"
+        "Quily",
+        "Quack"
       ]
     },
     {
