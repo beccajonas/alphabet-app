@@ -185,7 +185,7 @@ body {
       border: 1px solid #241e4e;
       border-radius: 3px;
       position: absolute;
-      bottom: 36%; /* Adjust this value as needed */
+      bottom: 39%; /* Adjust this value as needed */
       left: 50%;
       transform: translateX(-50%);
       text-align: center;
@@ -195,15 +195,15 @@ body {
       .button-on-image {
         width: 20vw; /* Adjust this value for screens between 320px and 480px */
         font-size: 0.3em; /* Adjust font size for screens between 320px and 480px */
-        bottom: 30%; /* Adjust bottom margin for screens between 320px and 480px */
+        bottom: 36%; /* Adjust bottom margin for screens between 320px and 480px */
       }
     }
 
     @media only screen and (max-width: 320px) {
       .button-on-image {
-        width: 26vw; /* Adjust this value for screens between 320px and 480px */
+        width: 30vw; /* Adjust this value for screens between 320px and 480px */
         font-size: 0.1em; /* Adjust font size for screens between 320px and 480px */
-        bottom: 25%; /* Adjust bottom margin for screens between 320px and 480px */
+        bottom: 32%; /* Adjust bottom margin for screens between 320px and 480px */
       }
     }
 
@@ -216,39 +216,8 @@ body {
   cursor: pointer;
 }
 
-#instruction-div {
-  margin-bottom: .5em;
-  margin-top: .5em;
-  font-size: .75em;
-  border: .2em solid #241e4e;
-  border-radius: 4px;
-  padding-left: 1px;
-  padding-right: 1px;
-  background-color: #6FD08C;
-}
-
-.instructions {
-  padding-left: 2px;
-  padding-right: 2px;
-  margin: .5rem;
-}
-
 .letter-list {
   font: 1em;
   padding: 0px;
   margin: 0px;
-}
-
-#hiddenInput {
-  position: absolute;
-  top: -100px;
-  opacity: 0;
-  width: 1px;
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  border: none;
-  padding: 0;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
 }

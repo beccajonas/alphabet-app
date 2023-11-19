@@ -1,179 +1,147 @@
-// * To do: 
-// * 1. Persist patch without refresh
-// * 2. Remove selected element from relatedWords array on delete button click
-// * 3. Prevent entire letter object being deleted if all relatedWords are array (see parent element?)
-window.onload = function () {
-    document.getElementById('hiddenInput').focus();
+let formRendered = false;
+const letterColors = ['#241e4e', '#6FD08C', '#a3333d'];
+const ul = document.querySelector('#related-word-list');
+const imageButton = document.querySelector('.button-on-image');
+imageButton.style.display = 'none';
+const form = document.querySelector('#form');
+const alphabet = Array.from({ length: 26 }, (_, i) => String.fromCharCode(97 + i));
+
+const fetchData = () => {
+  fetch("https://alphabet-data.onrender.com/alphabet/")
+    .then((response) => response.json())
+    .then((data) => {
+      formHandle(data);
+      data.forEach((letter) => {
+        renderDisplay(letter);
+        renderLetters(letter);
+      });
+    });
 };
 
-let formRendered = false;
-let ul = document.querySelector('#related-word-list')
-let footerPhoto = document.querySelector('.footer-image');
-let imageButton = document.querySelector('.button-on-image');
-imageButton.style.display = 'none';
-let form = document.querySelector('#form');
-let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+const renderLetters = (letter) => {
+  const letterList = document.getElementById("list-of-letters");
+  const displayLetter = document.createElement('li');
+  displayLetter.textContent = letter.letter;
+  const randomColor = letterColors[Math.floor(Math.random() * letterColors.length)];
+  displayLetter.style.color = randomColor;
+  letterList.append(displayLetter);
+  displayLetter.addEventListener('click', () => renderDisplayContent(letter));
+};
 
-fetch("https://alphabet-data.onrender.com/alphabet/")
-    .then((res) => res.json())
-    .then((data) => {
-        formHandle(data);
-        data.forEach(letter => {
-            renderDisplay(letter);
-            renderLetters(letter);
-        });
-    });
+const renderDisplayContent = (letter) => {
+  ul.style.display = 'flex';
+  const relatedWords = letter.relatedWords;
 
-function renderLetters(letters) {
-    let letterList = document.getElementById("list-of-letters");
-    let letter = document.createElement('li');
-    letter.textContent = letters.letter;
-    letter.addEventListener('click', () => {
-        letter.style.textDecoration = "line-through";
-        letter.style.textDecorationColor = "#A3333D";
-    });
-    letterList.append(letter);
+  ul.innerHTML = '';
+
+  relatedWords.forEach(word => {
+    const li = createLiElement(word);
+    ul.appendChild(li);
+  });
+
+  showElements(letter);
+};
+
+const createLiElement = (word) => {
+  const li = document.createElement('li');
+  li.innerText = word;
+  li.className = 'related-words';
+  const deleteIcon = document.createElement('span');
+  deleteIcon.innerHTML = '&#10006;';
+  deleteIcon.className = 'delete-button';
+  li.appendChild(deleteIcon);
+
+  deleteIcon.addEventListener('click', () => handleDeleteClick(letter, word));
+
+  return li;
+};
+
+const handleDeleteClick = (letter, word) => {
+  const filteredArray = letter.relatedWords.filter(w => w !== word);
+  updateRelatedWords(letter, filteredArray);
+};
+
+const updateRelatedWords = (letter, filteredArray) => {
+  fetch(`https://alphabet-data.onrender.com/alphabet/${letter.id}`, {
+    method: 'PATCH',
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ relatedWords: filteredArray })
+  })
+    .then(response => response.json())
+    .then(() => ul.innerHTML = filteredArray.map(createLiElement));
+};
+
+const showElements = (letter) => {
+  document.querySelector('#word-div').style.display = 'flex';
+  document.querySelector('#display-letter').style.display = 'flex';
+  imageButton.style.display = 'flex';
+  form.style.display = 'flex';
+
+  const photo = document.querySelector('img');
+  const word = document.querySelector('h3');
+  const displayLetter = document.querySelector('.display-letter');
+
+  photo.src = letter.photo;
+  photo.alt = letter.photo;
+  photo.title = letter.altText;
+  word.innerText = letter.word;
+  displayLetter.innerText = letter.letter;
+
+  imageButton.addEventListener('click', () => {
+    photo.src = letter.livePhoto;
+    imageButton.style.display = 'none';
+  });
+
+  photo.addEventListener('mouseover', (e) => e.mouseover = photo.title);
+};
+
+const formHandle = (letters) => {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const wordSubmission = e.target[0].value;
+    const wordSubmissionFirstLetter = wordSubmission[0].toLowerCase();
+    const wordSubmissionIndex = alphabet.indexOf(wordSubmissionFirstLetter).toString();
+    const letterObj = letters[wordSubmissionIndex];
+
+    if (!letterObj) {
+      alert(`Oops! No letter found for '${wordSubmissionFirstLetter}'. Try again!`);
+      return;
     }
 
-function formHandle(letters) {
-    form.addEventListener('submit', e => {
-        e.preventDefault();
-        let wordSubmission = e.target[0].value;
-        let wordSubmissionFirstLetter = wordSubmission[0].toLowerCase();
-        let wordSubmissionIndex = alphabet.indexOf(wordSubmissionFirstLetter).toString();
-        let letterObj = letters[wordSubmissionIndex];
-
-        if (!letterObj) {
-            alert(`Oops! No letter found for '${wordSubmissionFirstLetter}'. Try again!`);
-            return;
-        }
-
-        let letterId = letterObj.id;
-        let letterWordArray = letterObj.relatedWords;
-
-    console.log('Before fetch', letterWordArray, wordSubmission);
+    const letterId = letterObj.id;
+    const letterWordArray = letterObj.relatedWords;
 
     fetch(`https://alphabet-data.onrender.com/alphabet/${letterId}`, {
-        method: 'PATCH', 
-        headers: {
-            "content-type" : "application/JSON"
-        },
-        body: JSON.stringify ({ relatedWords : [...letterWordArray, wordSubmission] })
+      method: 'PATCH',
+      headers: { "content-type": "application/JSON" },
+      body: JSON.stringify({ relatedWords: [...letterWordArray, wordSubmission] })
     })
-    .then(response => response.json())
-    .then(data => {   
-        console.log("After fetch success ", data);
+      .then(response => response.json())
+      .then(data => {
         if (wordSubmissionFirstLetter.toLowerCase() === letterObj.letter.toLowerCase()) {
-            let newWordLi = document.createElement('li');
-            newWordLi.innerText = wordSubmission;
-            newWordLi.className = 'related-words';
-
-            let deleteIcon = document.createElement('span');
-            deleteIcon.innerHTML = '&#10006;'; 
-            deleteIcon.className = 'delete-button';
-
-            newWordLi.appendChild(deleteIcon);
-            ul.append(newWordLi);
-            form.reset();
+          ul.appendChild(createLiElement(wordSubmission));
+          form.reset();
+        } else {
+          alert(`Oops! That doesn't start with '${data.letter.toLowerCase()}.' Try again!`);
         }
-        else {alert(`Oops! That doesn't start with '${data.letter.toLowerCase()}.' Try again!`)}
-        })
-    })
-}
-
-function renderDisplay(letter) {
-    document.addEventListener('keypress', e => {    
-        
-        if (e.target.tagName.toLowerCase() !== 'input') {
-
-            if (letter.letter.toLowerCase() === e.key) {
-            
-                ul.style.display = 'flex';
-                let relatedWords = letter.relatedWords;
-
-                ul.innerHTML = '';
-
-                relatedWords.forEach(word => {
-                    let li = document.createElement('li');
-                    li.innerText = word;
-                    li.className = 'related-words';
-
-                    let deleteIcon = document.createElement('span');
-                    deleteIcon.innerHTML = '&#10006;'; 
-                    deleteIcon.className = 'delete-button';
-
-                    li.appendChild(deleteIcon);
-                    ul.appendChild(li);
-                });
-
-                document.querySelector('#word-div').style.display = 'flex';
-                document.querySelector('#display-letter').style.display = 'flex';
-                document.querySelector('.button-on-image').style.display = 'flex';
-                form.style.display = 'flex';
-        
-                let photo = document.querySelector('img');
-                let word = document.querySelector('h3');
-                let displayLetter = document.querySelector('.display-letter');
-
-                photo.src = letter.photo;
-                photo.alt = letter.photo;
-                photo.title = letter.altText;
-                word.innerText = letter.word;
-                displayLetter.innerText = letter.letter;
-            
-
-                imageButton.addEventListener('click', () => {
-                    photo.src = letter.livePhoto;
-                    imageButton.style.display = 'none';
-                });
-            
-                photo.addEventListener('mouseover', (e) => {
-                    let tooltipContent = photo.title;
-                    e.mouseover = tooltipContent;
-                });    
-                
-                 ul.addEventListener('click', (e) => {
-                    if (e.target.className === 'delete-button') {
-                        let clickedElement = Array.from(e.target.parentElement.textContent);
-                        let clickedElementMinusX = clickedElement.slice(0 , clickedElement.length -1).toString();
-                        let newClickedElement = clickedElementMinusX.replace(/,/g, '');
-
-                        let filteredArray = relatedWords.filter(word => word !== newClickedElement);
-                        console.log('Before fetch:', letter.id, relatedWords, filteredArray);
-                      
-                        fetch(`https://alphabet-data.onrender.com/alphabet/${letter.id}`, {
-                            method: 'PATCH', 
-                            headers: {
-                              "content-type" : "application/json"
-                            },
-                            body: JSON.stringify ({relatedWords: filteredArray})
-                            })
-                            .then(response => response.json())
-                            .then(data => {
-                                console.log('After fetch success:', data);
-                                e.target.parentElement.remove();
-                            });
-                        };
-                    });
-                };
-            };
-        }
-    );
+      });
+  });
 };
 
+const renderDisplay = (letter) => {
+  document.addEventListener('keypress', (e) => {
+    if (e.target.tagName.toLowerCase() !== 'input') {
+      if (letter.letter.toLowerCase() === e.key) {
+        renderDisplayContent(letter);
+        const letterList = document.getElementById("list-of-letters");
+        const letters = letterList.getElementsByTagName('li');
 
+        for (let i = 0; i < letters.length; i++) {
+          const randomColor = letterColors[Math.floor(Math.random() * letterColors.length)];
+          letters[i].style.color = randomColor;
+      }
+    }
+  }}
+)};
 
-// let prompt = document.querySelector(".input")
-// prompt.addEventListener('keypress', e => {
-//     console.log('prompt keycode ' + e.key);
-//     let promptKeypress = e.key;
-// })
-
-// document.addEventListener('keypress', e => {
-//     if (e.target.tagName.toLowerCase() !== 'input') {
-//         console.log('document keycode ' + e.key)
-//     let pageKeypress = e.key;
-//     }
-// });
-
-// console.log(promptKeypress, pageKeypress);
+fetchData();
