@@ -6,6 +6,24 @@ imageButton.style.display = 'none';
 let form = document.querySelector('#form');
 let alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
+// Function to handle letter button clicks
+function handleLetterClick(letter) {
+  console.log(`Clicked on letter: ${letter}`);
+  // Add your specific logic here
+}
+
+// Function to generate letter buttons
+function generateLetterButtons() {
+  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+  for (let letter of alphabet) {
+    const button = document.createElement('button');
+    button.textContent = letter;
+    button.addEventListener('click', () => handleLetterClick(letter));
+    document.body.appendChild(button);
+  }
+}
+
 fetch("https://alphabet-data.onrender.com/alphabet/")
   .then((res) => res.json())
   .then((data) => {
@@ -222,5 +240,8 @@ function renderDisplay(letter) {
       }
     }
   });
-};
+}
+
+// Call the function to generate letter buttons on page load
+window.onload = generateLetterButtons;
 
