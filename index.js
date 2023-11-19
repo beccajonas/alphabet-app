@@ -1,13 +1,3 @@
-const jsonServer = require('json-server')
-const server = jsonServer.create()
-const router = jsonServer.router('db.json')
-const middlewares = jsonServer.defaults()
-
-server.use(middlewares)
-server.use(router)
-server.listen(3000, () => {
-  console.log('JSON Server is running')
-})
 // * To do: 
 // * 1. Persist patch without refresh
 // * 2. Remove selected element from relatedWords array on delete button click
@@ -21,7 +11,7 @@ imageButton.style.display = 'none';
 let form = document.querySelector('#form');
 let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
-fetch("http://localhost:3000/alphabet")
+fetch("https://alphabet-data.onrender.com/alphabet/")
     .then((res) => res.json())
     .then((data) => {
         formHandle(data);
@@ -60,7 +50,7 @@ function formHandle(letters) {
 
     console.log('Before fetch', letterWordArray, wordSubmission);
 
-    fetch(`http://localhost:3000/alphabet/${letterId}`, {
+    fetch(`https://alphabet-data.onrender.com/alphabet/${letterId}`, {
         method: 'PATCH', 
         headers: {
             "content-type" : "application/JSON"
@@ -148,7 +138,7 @@ function renderDisplay(letter) {
                         let filteredArray = relatedWords.filter(word => word !== newClickedElement);
                         console.log('Before fetch:', letter.id, relatedWords, filteredArray);
                       
-                        fetch(`http://localhost:3000/alphabet/${letter.id}`, {
+                        fetch(`https://alphabet-data.onrender.com/alphabet/${letter.id}`, {
                             method: 'PATCH', 
                             headers: {
                               "content-type" : "application/json"
