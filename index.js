@@ -2,6 +2,9 @@
 // * 1. Persist patch without refresh
 // * 2. Remove selected element from relatedWords array on delete button click
 // * 3. Prevent entire letter object being deleted if all relatedWords are array (see parent element?)
+window.onload = function () {
+    document.getElementById('hiddenInput').focus();
+};
 
 let formRendered = false;
 let ul = document.querySelector('#related-word-list')

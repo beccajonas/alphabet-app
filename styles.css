@@ -238,3 +238,9 @@ body {
   padding: 0px;
   margin: 0px;
 }
+
+#hiddenInput {
+  position: absolute;
+  top: -100px;
+  opacity: 0; /* Make it transparent */
+}
