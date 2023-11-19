@@ -10,6 +10,15 @@ body {
     font-family: 'Schoolbell';
   }
 
+  button {
+    font-size: 1.5em;
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
   #title-div {
     display: flex;
     flex-wrap: wrap;
