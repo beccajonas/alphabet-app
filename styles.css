@@ -193,17 +193,17 @@ body {
 
     @media only screen and (min-width: 320px) and (max-width: 480px) {
       .button-on-image {
-        width: 20vw; /* Adjust this value for screens between 320px and 480px */
-        font-size: 0.3em; /* Adjust font size for screens between 320px and 480px */
-        bottom: 36%; /* Adjust bottom margin for screens between 320px and 480px */
+        width: 24vw; /* Adjust this value for screens between 320px and 480px */
+        font-size: 0.05em; /* Adjust font size for screens between 320px and 480px */
+        bottom: 37%; /* Adjust bottom margin for screens between 320px and 480px */
       }
     }
 
     @media only screen and (max-width: 320px) {
       .button-on-image {
-        width: 30vw; /* Adjust this value for screens between 320px and 480px */
+        width: 34vw; /* Adjust this value for screens between 320px and 480px */
         font-size: 0.1em; /* Adjust font size for screens between 320px and 480px */
-        bottom: 32%; /* Adjust bottom margin for screens between 320px and 480px */
+        bottom: 29%; /* Adjust bottom margin for screens between 320px and 480px */
       }
     }
 
