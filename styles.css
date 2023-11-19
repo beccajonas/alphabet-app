@@ -200,6 +200,22 @@ body {
       .delete-button {
         display: none;
       }
+      .related-words {
+        text-align: center;
+        font-size: 1em;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-bottom: 10px;
+        margin-left: .1em;
+        margin-right: .1em;
+        border: 2px solid #241E4E;
+        border-radius: 8px;
+        color: #241E4E;
+        position: relative;
+        background-color: #FFD046;
+      }
     }
 
     @media only screen and (max-width: 320px) {
@@ -210,6 +226,22 @@ body {
       }
       .delete-button {
         display: none;
+      }
+      .related-words {
+        text-align: center;
+        font-size: 1em;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 15px;
+        padding-right: 15px;
+        margin-bottom: 10px;
+        margin-left: .1em;
+        margin-right: .1em;
+        border: 2px solid #241E4E;
+        border-radius: 8px;
+        color: #241E4E;
+        position: relative;
+        background-color: #FFD046;
       }
     }
 
