@@ -242,5 +242,5 @@ body {
 #hiddenInput {
   position: absolute;
   top: -100px;
-  opacity: 0; /* Make it transparent */
+  opacity: 0.5; /* Make it semi-transparent */
 }
